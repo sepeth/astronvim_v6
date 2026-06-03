@@ -71,6 +71,11 @@ return {
           desc = "Close buffer from tabline",
         },
 
+        ["<Leader>U"] = {
+          function() vim.cmd.edit(vim.fn.stdpath "config" .. "/lua/plugins/user.lua") end,
+          desc = "Open user.lua",
+        },
+
         -- tables with just a `desc` key will be registered with which-key if it's installed
         -- this is useful for naming menus
         -- ["<Leader>b"] = { desc = "Buffers" },
