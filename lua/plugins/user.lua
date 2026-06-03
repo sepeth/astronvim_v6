@@ -60,6 +60,15 @@ return {
     lazy = false,
   },
 
+  {
+    "Owen-Dechow/videre.nvim",
+    cmd = "Videre",
+    opts = {
+      round_units = false,
+      simple_statusline = true,
+    },
+  },
+
   -- You can disable default plugins as follows:
   -- { "max397574/better-escape.nvim", enabled = false },
 
