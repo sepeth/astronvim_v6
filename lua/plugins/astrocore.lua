@@ -76,6 +76,8 @@ return {
           desc = "Open user.lua",
         },
 
+        ["<Leader><Leader>"] = { "<C-^>", desc = "Alternate file" },
+
         -- tables with just a `desc` key will be registered with which-key if it's installed
         -- this is useful for naming menus
         -- ["<Leader>b"] = { desc = "Buffers" },
