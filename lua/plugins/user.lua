@@ -40,6 +40,16 @@ return {
         win = {
           input = {
             keys = {
+              ["<C-a>"] = {
+                function() vim.api.nvim_feedkeys(vim.keycode "<Home>", "n", false) end,
+                mode = { "i", "n" },
+                desc = "Input beginning",
+              },
+              ["<C-e>"] = {
+                function() vim.api.nvim_feedkeys(vim.keycode "<End>", "n", false) end,
+                mode = { "i", "n" },
+                desc = "Input end",
+              },
               ["<C-h>"] = { "focus_list", mode = { "i", "n" } },
               ["<C-j>"] = { "focus_list", mode = { "i", "n" } },
               ["<C-k>"] = { "focus_input", mode = { "i", "n" } },

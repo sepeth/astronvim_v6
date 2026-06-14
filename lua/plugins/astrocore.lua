@@ -111,6 +111,10 @@ return {
         -- setting a mapping to false will disable it
         -- ["<C-S>"] = false,
       },
+      c = {
+        ["<C-a>"] = { "<Home>", desc = "Command-line beginning" },
+        ["<C-e>"] = { "<End>", desc = "Command-line end" },
+      },
     },
   },
 }
