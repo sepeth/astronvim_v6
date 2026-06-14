@@ -4,6 +4,17 @@
 --       as this provides autocomplete and documentation while editing
 
 ---@type LazySpec
+local function dash_lookup()
+  local query = vim.fn.expand "<cword>"
+
+  if query == "" then
+    vim.notify("No word under cursor for Dash lookup", vim.log.levels.WARN)
+    return
+  end
+
+  vim.ui.open("dash://" .. vim.uri_encode(query))
+end
+
 return {
   "AstroNvim/astrocore",
   ---@type AstroCoreOpts
@@ -77,6 +88,8 @@ return {
         },
 
         ["<Leader><Leader>"] = { "<C-^>", desc = "Alternate file" },
+
+        ["Q"] = { dash_lookup, desc = "Dash lookup" },
 
         -- tables with just a `desc` key will be registered with which-key if it's installed
         -- this is useful for naming menus
