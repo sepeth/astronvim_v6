@@ -33,6 +33,19 @@ return {
       virtual_text = true,
       underline = true,
     },
+    autocmds = {
+      json_conceal = {
+        {
+          event = "FileType",
+          pattern = { "json", "jsonc", "json5" },
+          desc = "Hide JSON quotes in normal mode",
+          callback = function()
+            vim.opt_local.conceallevel = 2
+            vim.opt_local.concealcursor = "n"
+          end,
+        },
+      },
+    },
     -- passed to `vim.filetype.add`
     filetypes = {
       -- see `:h vim.filetype.add` for usage
