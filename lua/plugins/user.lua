@@ -37,6 +37,28 @@ return {
         },
       },
       picker = {
+        win = {
+          input = {
+            keys = {
+              ["<C-h>"] = { "focus_list", mode = { "i", "n" } },
+              ["<C-j>"] = { "focus_list", mode = { "i", "n" } },
+              ["<C-k>"] = { "focus_input", mode = { "i", "n" } },
+              ["<C-l>"] = { "focus_preview", mode = { "i", "n" } },
+            },
+          },
+          list = {
+            keys = {
+              ["<C-k>"] = "focus_input",
+              ["<C-l>"] = "focus_preview",
+            },
+          },
+          preview = {
+            keys = {
+              ["<C-h>"] = "focus_list",
+              ["<C-k>"] = "focus_input",
+            },
+          },
+        },
         sources = {
           notifications = {
             win = {
