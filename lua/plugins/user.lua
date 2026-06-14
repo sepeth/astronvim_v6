@@ -29,6 +29,26 @@ return {
         notification = {
           wo = { wrap = true }, -- Wrap notifications
         },
+        notification_history = {
+          wo = {
+            wrap = true,
+            linebreak = true,
+          },
+        },
+      },
+      picker = {
+        sources = {
+          notifications = {
+            win = {
+              preview = {
+                wo = {
+                  wrap = true,
+                  linebreak = true,
+                },
+              },
+            },
+          },
+        },
       },
       dashboard = {
         preset = {
