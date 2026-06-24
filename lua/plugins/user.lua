@@ -50,7 +50,6 @@ return {
                 mode = { "i", "n" },
                 desc = "Input end",
               },
-              ["<C-h>"] = { "focus_list", mode = { "i", "n" } },
               ["<C-j>"] = { "focus_list", mode = { "i", "n" } },
               ["<C-k>"] = { "focus_input", mode = { "i", "n" } },
               ["<C-l>"] = { "focus_preview", mode = { "i", "n" } },
