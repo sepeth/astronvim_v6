@@ -83,6 +83,22 @@ return {
           desc = "Declaration of current symbol",
           cond = "textDocument/declaration",
         },
+        ["<Leader>vd"] = {
+          function()
+            vim.cmd.vsplit()
+            vim.lsp.buf.definition()
+          end,
+          desc = "Definition in vertical split",
+          cond = "textDocument/definition",
+        },
+        ["<Leader>vD"] = {
+          function()
+            vim.cmd.split()
+            vim.lsp.buf.definition()
+          end,
+          desc = "Definition in horizontal split",
+          cond = "textDocument/definition",
+        },
         ["<Leader>uY"] = {
           function() require("astrolsp.toggles").buffer_semantic_tokens() end,
           desc = "Toggle LSP semantic highlight (buffer)",

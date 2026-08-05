@@ -102,6 +102,8 @@ return {
 
         ["<Leader><Leader>"] = { "<C-^>", desc = "Alternate file" },
 
+        ["<Leader>v"] = { desc = "View/Splits" },
+
         ["Q"] = { dash_lookup, desc = "Dash lookup" },
 
         -- tables with just a `desc` key will be registered with which-key if it's installed
