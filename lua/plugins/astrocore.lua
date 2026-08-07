@@ -15,6 +15,34 @@ local function dash_lookup()
   vim.ui.open("dash://" .. vim.uri_encode(query))
 end
 
+local function visual_selection()
+  local start_pos = vim.fn.getpos "'<"
+  local end_pos = vim.fn.getpos "'>"
+  if start_pos[2] == 0 or end_pos[2] == 0 then return "" end
+
+  local ok, lines = pcall(vim.fn.getregion, start_pos, end_pos, { type = vim.fn.visualmode() })
+  if not ok then return "" end
+
+  return vim.trim(table.concat(lines, " "):gsub("%s+", " "))
+end
+
+local function dictionary_lookup(query)
+  query = query or vim.fn.expand "<cword>"
+
+  if query == "" then
+    vim.notify("No text for Dictionary lookup", vim.log.levels.WARN)
+    return
+  end
+
+  vim.ui.open("dict://" .. vim.uri_encode(query))
+end
+
+vim.api.nvim_create_user_command(
+  "DictionaryLookup",
+  function() dictionary_lookup(visual_selection()) end,
+  { range = true, desc = "Dictionary lookup for visual selection" }
+)
+
 return {
   "AstroNvim/astrocore",
   ---@type AstroCoreOpts
@@ -104,6 +132,8 @@ return {
 
         ["<Leader>v"] = { desc = "View/Splits" },
 
+        ["<Leader>uk"] = { dictionary_lookup, desc = "Dictionary lookup" },
+
         ["Q"] = { dash_lookup, desc = "Dash lookup" },
 
         -- tables with just a `desc` key will be registered with which-key if it's installed
@@ -116,6 +146,9 @@ return {
       c = {
         ["<C-a>"] = { "<Home>", desc = "Command-line beginning" },
         ["<C-e>"] = { "<End>", desc = "Command-line end" },
+      },
+      x = {
+        ["<Leader>uk"] = { ":DictionaryLookup<CR>", desc = "Dictionary lookup" },
       },
     },
   },
