@@ -23,6 +23,7 @@ return {
           -- "go",
         },
         ignore_filetypes = { -- disable format on save for specified filetypes
+          "cs",
           -- "python",
         },
       },
@@ -37,6 +38,7 @@ return {
     },
     -- enable servers that you already have installed without mason
     servers = {
+      "csharp_ls",
       -- "pyright"
     },
     -- customize language server configuration passed to `vim.lsp.config`
