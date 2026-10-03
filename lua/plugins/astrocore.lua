@@ -62,6 +62,55 @@ return {
       underline = true,
     },
     autocmds = {
+      cpp_debug = {
+        {
+          event = "FileType",
+          pattern = "cpp",
+          desc = "Build and debug the current standalone C++ file with F5",
+          callback = function(args)
+            vim.keymap.set("n", "<F5>", function()
+              local dap = require "dap"
+              if dap.session() then
+                dap.continue()
+                return
+              end
+
+              local source = vim.api.nvim_buf_get_name(args.buf)
+              if source == "" then
+                vim.notify("Save the C++ file before debugging", vim.log.levels.ERROR)
+                return
+              end
+              vim.api.nvim_buf_call(args.buf, function() vim.cmd.write() end)
+
+              local executable = vim.fn.fnamemodify(source, ":r") .. ".debug"
+              local compiler = vim.fn.exepath "clang++"
+              if compiler == "" then
+                vim.notify("clang++ is not available in Neovim's PATH", vim.log.levels.ERROR)
+                return
+              end
+              vim.system({ compiler, "-g", "-O0", source, "-o", executable }, {
+                cwd = vim.fn.fnamemodify(source, ":h"),
+                text = true,
+              }, function(result)
+                vim.schedule(function()
+                  if result.code ~= 0 then
+                    vim.notify("C++ build failed:\n" .. (result.stderr or ""), vim.log.levels.ERROR)
+                    return
+                  end
+                  dap.run {
+                    name = "Build and debug current C++ file",
+                    type = "codelldb",
+                    request = "launch",
+                    program = executable,
+                    cwd = vim.fn.fnamemodify(source, ":h"),
+                    stopOnEntry = false,
+                  }
+                end)
+              end)
+            end, { buffer = args.buf, desc = "Build and debug current C++ file" })
+          end,
+        },
+      },
       json_conceal = {
         {
           event = "FileType",
