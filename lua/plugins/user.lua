@@ -120,6 +120,17 @@ return {
     },
   },
 
+  {
+    "krady21/compiler-explorer.nvim",
+    cmd = "CECompile",
+    opts = {
+      line_match = {
+        highlight = true,
+        jump = true,
+      },
+    },
+  },
+
   -- You can disable default plugins as follows:
   -- { "max397574/better-escape.nvim", enabled = false },
 

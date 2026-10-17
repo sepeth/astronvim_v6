@@ -41,6 +41,15 @@ vim.api.nvim_create_user_command(
   { range = true, desc = "Dictionary lookup for visual selection" }
 )
 
+vim.api.nvim_create_user_command("RsCECompile", function()
+  if vim.bo.filetype ~= "rust" then
+    vim.notify("RsCECompile requires a Rust buffer", vim.log.levels.WARN)
+    return
+  end
+
+  vim.cmd.CECompile "compiler=r1990"
+end, { desc = "Compile Rust with Compiler Explorer" })
+
 ---
 ---@type LazySpec
 return {
@@ -62,6 +71,19 @@ return {
       underline = true,
     },
     autocmds = {
+      rust_compiler_explorer = {
+        {
+          event = "FileType",
+          pattern = "rust",
+          desc = "Map Compiler Explorer in Rust buffers",
+          callback = function(args)
+            vim.keymap.set("n", "<Leader>rc", "<Cmd>RsCECompile<CR>", {
+              buffer = args.buf,
+              desc = "Compile Rust with Compiler Explorer",
+            })
+          end,
+        },
+      },
       cpp_debug = {
         {
           event = "FileType",
